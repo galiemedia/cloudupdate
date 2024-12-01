@@ -129,7 +129,7 @@ distrocheck () {
             echo " "
             echo "Your computer is is currently running: $ID $VERSION_ID"
             echo " "
-            echo "This script is for Debian 12 - Installation stopped."
+            echo "This script is for Debian 12 - Update helper stopped."
             exit 1
         fi
         debian-greeting
@@ -144,7 +144,7 @@ distrocheck () {
             echo " "
             echo "Your computer is is currently running: $ID $VERSION_ID"
             echo " "
-            echo "This script is for Ubuntu 24 - Installation stopped."
+            echo "This script is for Ubuntu 24 - Update helper stopped."
             exit 1
         fi
         ubuntu-greeting
@@ -158,7 +158,7 @@ distrocheck () {
         echo " "
         echo "Your computer is is currently running: $ID $VERSION_ID"
         echo " "
-        echo "This script is for Debian 12 or Ubuntu 24 - Installation stopped."
+        echo "This script is for Debian 12 or Ubuntu 24 - Update helper stopped."
         exit 1
     fi
 }
