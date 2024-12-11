@@ -5,28 +5,13 @@
 # ------------------------------------------------------------------------
 #
 
-debian-greeting (){
+greeting (){
     sudo echo " "
     fastfetch
     echo " "
     echo "+------------------------------------------------------------------------------+"
     echo "| This is a helper script for server update checks and maintenance tasks for a |"
-    echo "| Debian 12 Server on a generic Cloud Hosting platform as a basic instance.    |"
-    echo "+------------------------------------------------------------------------------+"
-    echo " "
-    echo "If you don't want to continue, press Control-C now to exit the script."
-    echo " "
-    read -p "If you are ready to proceed, press [Enter] to start the script..."
-    echo " "
-}
-
-ubuntu-greeting (){
-    sudo echo " "
-    fastfetch
-    echo " "
-    echo "+------------------------------------------------------------------------------+"
-    echo "| This is a helper script for server update checks and maintenance tasks for a |"
-    echo "| Ubuntu 24.04 Server on a generic Cloud Hosting platform as a basic instance. |"
+    echo "| Debian 12 or Ubuntu 24 LTS basic device or non-specialized instance .        |"
     echo "+------------------------------------------------------------------------------+"
     echo " "
     echo "If you don't want to continue, press Control-C now to exit the script."
@@ -38,9 +23,6 @@ ubuntu-greeting (){
 backstage (){
     sudo apt-get update
     clear
-}
-
-showstatus (){
     echo " "
     echo "Checking on current Service statuses..."
     echo " "
@@ -64,19 +46,11 @@ checkupdate () {
     echo " "
 }
 
-debian-updateall () {
+updateall () {
     echo " "
     echo "Beginning the server update process..."
     echo " "
     sudo nala update && sudo nala upgrade
-    echo " "
-}
-
-ubuntu-updateall () {
-    echo " "
-    echo "Beginning the server update process..."
-    echo " "
-    sudo ucaresystem-core
     echo " "
 }
 
@@ -108,62 +82,10 @@ needrestart () {
     echo " "
 }
 
-distrocheck () {
-    clear
-    echo " "
-    echo "Checking your distribution and version..."
-    echo " "
-    if [ ! -f /etc/os-release ]; then
-        echo " "
-        echo "This script was unable to determine your OS. /etc/os-release file not found."
-        echo " "
-        echo "Update script will be stopped."
-        echo " "
-        exit 1
-    fi
-    . /etc/os-release
-    if [ "$ID" = "debian" ]; then
-        if [ $(echo "$VERSION_ID >= 12" | bc) != 1 ]; then
-            echo " "
-            echo "This script is not compatible with your version of Debian."
-            echo " "
-            echo "Your computer is is currently running: $ID $VERSION_ID"
-            echo " "
-            echo "This script is for Debian 12 - Update helper stopped."
-            exit 1
-        fi
-        debian-greeting
-        backstage
-        showstatus
-        checkupdate
-        debian-updateall
-    elif [ "$ID" = "ubuntu" ]; then
-        if [ $(echo "$VERSION_ID >= 24.04" | bc) != 1 ]; then
-            echo " "
-            echo "This script is not compatible with your version of Ubuntu."
-            echo " "
-            echo "Your computer is is currently running: $ID $VERSION_ID"
-            echo " "
-            echo "This script is for Ubuntu 24 - Update helper stopped."
-            exit 1
-        fi
-        ubuntu-greeting
-        backstage
-        showstatus
-        checkupdate
-        ubuntu-updateall
-    else 
-        echo " "
-        echo "This script is not compatible with your distribution."
-        echo " "
-        echo "Your computer is is currently running: $ID $VERSION_ID"
-        echo " "
-        echo "This script is for Debian 12 or Ubuntu 24 - Update helper stopped."
-        exit 1
-    fi
-}
-
-distrocheck
+greeting
+backstage
+checkupdate
+updateall
 cleanup
 needrestart
 exit 0
